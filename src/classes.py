@@ -20,10 +20,11 @@ class User:
         self.realname = realname
         self.email = email
         self.password = password
+        self.following = []
         self.posts = []
 
     def __str__(self):
-        return f"Usuário: {self.username}\nNome: {self.realname}\nE-mail: {self.email}"
+        return f"Usuário: {self.username}\nNome: {self.realname}\nE-mail: {self.email}\nSeguindo: {self.following}"
     
     def post_content(self, content):
         content = Post(self.username, content)
@@ -34,6 +35,11 @@ class User:
     def show_posts(self):
         if not self.posts:
             print("Você não postou nada ainda.")
-            #hit_continue()
+            hit_continue()
+            return
         for post in self.posts:
             print(post)
+
+    def follow_user(self, user):
+        if user not in self.following:
+            self.following.append(user)

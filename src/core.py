@@ -7,63 +7,65 @@ from time import sleep
 from utils.clean_screen import limpar_tela
 from user_data import users
 
+
 current_user = None
 
 def hit_continue():
     input("Aperte qualquer tecla para continuar.")
 
+
 while True:
     title()
-    print(current_user)
     menu_inicial()
     opcao = input(">>>  ")
     match opcao:
-        case "1":
+        case "1":   # Fazer login
             current_user = login(users)
             print(current_user)
             if current_user:
-                while True:
+                while current_user != None:
                     title()
                     print("")
                     print(f"Bem vindo, {current_user.username}!")
                     menu_principal()
                     opcao = input(">>> ")
+                    title()
                     match opcao:
-                        case "1":
+                        case "1": # ver timeline
                             current_user.show_posts()
                             hit_continue()
-                        case "2":
+                        case "2": # Ver perfil
                             print(current_user)
                             hit_continue()
-                        case "3":
+                        case "3": # Postar conteudo
                             content = input("Postagem: ")
                             current_user.post_content(content)
                             hit_continue()
-                        case "4":
-                            ...
-                        case "0":
+                        case "4": # Seguir usuário
+                            user_to_follow = input("Nome do usuário que para seguir: ")
+                            current_user.follow_user(user_to_follow)
+                        case "0": # Desconectar
                             current_user = None
-                            break
-                        case "x":
-                            limpar_tela()
-                            print()
-                            print("Fechando o Y...")
-                            sleep(1)
+                        case "x": # Sair
+                            title()
+                            print("Você esta saindo!\nNos vemos mais tarde :)")
+                            sleep(2)
                             limpar_tela()
                             exit()
                         case _:
                             print("valor informado não existe")
                             hit_continue()
-        case "2":
+        case "2":  # Cadastrar novo usuário
+            title()
             user_register(users)
-        case "x"|"X":
-            limpar_tela()
-            print()
-            print("Fechando o Y...")
-            sleep(1)
+        case "x"|"X":  # Sair
+            title()
+            print("Você esta saindo!\nNos vemos mais tarde :)")
+            sleep(2)
             limpar_tela()
             exit()
         case _:
+            title()
             print("\nvalor informado não existe")
             hit_continue()
 

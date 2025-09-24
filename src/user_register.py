@@ -2,7 +2,7 @@ from utils.hash import hash_password
 from classes import User
 
 def user_register(users):
-    print("Iniciando cadastro:")
+    print("____________ Cadastro ____________\n")
     username = input("Nome de usuário: ")
     if username in users:
         print("Usuário já existe!")
