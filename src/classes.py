@@ -1,4 +1,8 @@
 from datetime import datetime
+from utils.colors import bcolors as bc
+
+def hit_continue():
+    input("Aperte qualquer tecla para continuar.")
 
 class Post:
     def __init__(self, author, content):
@@ -7,7 +11,7 @@ class Post:
         self.timestamp = datetime.now().strftime('%d/%m/%Y %H:%M')
 
     def __str__(self):
-        return f"{self.author} ({self.timestamp})\n{self.content}"
+        return f"{bc.BOLD}{self.author} ({self.timestamp}){bc.ENDC}\n{self.content}"
 
 
 class User:
@@ -18,8 +22,18 @@ class User:
         self.password = password
         self.posts = []
 
+    def __str__(self):
+        return f"Usuário: {self.username}\nNome: {self.realname}\nE-mail: {self.email}"
+    
     def post_content(self, content):
         content = Post(self.username, content)
         self.posts.append(content)
         print(content)
         return content
+    
+    def show_posts(self):
+        if not self.posts:
+            print("Você não postou nada ainda.")
+            #hit_continue()
+        for post in self.posts:
+            print(post)
